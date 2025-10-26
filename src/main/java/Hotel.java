@@ -1,7 +1,10 @@
 import java.util.List;
 
 public class Hotel {
-    private List<Chambre> chambres;
+    public record State(List<Chambre.State> chambres) {
+    }
+
+    private final List<Chambre> chambres;
 
     public Hotel(List<Chambre> chambres) {
         this.chambres = chambres;
@@ -17,9 +20,6 @@ public class Hotel {
                 .toList();
 
         return new Hotel(chambres);
-    }
-
-    record State(List<Chambre.State> chambres) {
     }
 
     public State state() {
