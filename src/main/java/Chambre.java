@@ -3,18 +3,20 @@ public class Chambre {
     private final int numero;
     private PrixEnEuros prix;
 
-    public Chambre(int etage, int numero, double prix) {
+    private static final PrixEnEuros PRIX_REZ_DE_CHAUSSEE_INITIAL = new PrixEnEuros(100.00);
+
+    private Chambre(int etage, int numero, PrixEnEuros prix) {
         this.etage = etage;
         this.numero = numero;
-        this.prix = new PrixEnEuros(prix);
+        this.prix = prix;
     }
 
     public static Chambre creer(CreationInput input) {
-        return new Chambre(input.etage(), input.numero(), calculerPrixChambreDepuisPrixRdcEtEtage(100.00, input.etage()));
+        return new Chambre(input.etage(), input.numero(), calculerPrixChambreDepuisPrixRdcEtEtage(PRIX_REZ_DE_CHAUSSEE_INITIAL, input.etage()));
     }
 
     public static Chambre reconstruire(int etage, int numero, double prix) {
-        return new Chambre(etage, numero, prix);
+        return new Chambre(etage, numero, new PrixEnEuros(prix));
     }
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {
@@ -31,21 +33,6 @@ public class Chambre {
             }
             default -> {
                 return prixRdc.augmenteDe(33);
-            }
-        }
-    }
-
-    private static double calculerPrixChambreDepuisPrixRdcEtEtage(double prixRdc, int etage) {
-        switch (etage) {
-            case 0 -> {
-                return prixRdc;
-            }
-            // arrondir au centime le plus proche
-            case 1 -> {
-                return Math.round(prixRdc * 1.22 * 100.0) / 100.0;
-            }
-            default -> {
-                return Math.round(prixRdc * 1.33 * 100.0) / 100.0;
             }
         }
     }
