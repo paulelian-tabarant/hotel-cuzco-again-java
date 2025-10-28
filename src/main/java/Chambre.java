@@ -1,12 +1,12 @@
 public class Chambre {
     private final int etage;
     private final int numero;
-    private double prix;
+    private PrixEnEuros prix;
 
     public Chambre(int etage, int numero, double prix) {
         this.etage = etage;
         this.numero = numero;
-        this.prix = prix;
+        this.prix = new PrixEnEuros(prix);
     }
 
     public static Chambre creer(CreationInput input) {
@@ -18,7 +18,21 @@ public class Chambre {
     }
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {
-        this.prix = calculerPrixChambreDepuisPrixRdcEtEtage(nouveauPrix, this.etage);
+        this.prix = calculerPrixChambreDepuisPrixRdcEtEtage(new PrixEnEuros(nouveauPrix), etage);
+    }
+
+    private static PrixEnEuros calculerPrixChambreDepuisPrixRdcEtEtage(PrixEnEuros prixRdc, int etage) {
+        switch (etage) {
+            case 0 -> {
+                return prixRdc;
+            }
+            case 1 -> {
+                return prixRdc.augmenteDe(22);
+            }
+            default -> {
+                return prixRdc.augmenteDe(33);
+            }
+        }
     }
 
     private static double calculerPrixChambreDepuisPrixRdcEtEtage(double prixRdc, int etage) {
@@ -48,6 +62,6 @@ public class Chambre {
     }
 
     public State state() {
-        return new State(etage, numero, prix);
+        return new State(etage, numero, prix.valeur());
     }
 }

@@ -7,8 +7,8 @@ public class Hotel {
         this.chambres = chambres;
     }
 
-    public static Hotel creer(List<Chambre.CreationInput> chambresInputs) {
-        List<Chambre> chambres = chambresInputs.stream()
+    public static Hotel creer(List<Chambre.CreationInput> donneesCreationChambres) {
+        List<Chambre> chambres = donneesCreationChambres.stream()
                 .map(Chambre::creer)
                 .toList();
 
