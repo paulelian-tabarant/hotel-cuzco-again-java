@@ -11,8 +11,14 @@ public class Chambre {
         this.prix = prix;
     }
 
+    public record CreationInput(int etage, int numero) {
+    }
+
     public static Chambre creer(CreationInput input) {
         return new Chambre(input.etage(), input.numero(), calculerPrixChambreDepuisPrixRdcEtEtage(PRIX_REZ_DE_CHAUSSEE_INITIAL, input.etage()));
+    }
+
+    public record Input(int etage, int numero, double prix) {
     }
 
     public static Chambre reconstruire(int etage, int numero, double prix) {
@@ -21,6 +27,13 @@ public class Chambre {
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {
         this.prix = calculerPrixChambreDepuisPrixRdcEtEtage(new PrixEnEuros(nouveauPrix), etage);
+    }
+
+    public record State(int etage, int numero, double prix) {
+    }
+
+    public State state() {
+        return new State(etage, numero, prix.valeur());
     }
 
     private static PrixEnEuros calculerPrixChambreDepuisPrixRdcEtEtage(PrixEnEuros prixRdc, int etage) {
@@ -35,20 +48,5 @@ public class Chambre {
                 return prixRdc.augmenteDe(33);
             }
         }
-    }
-
-    public record CreationInput(int etage, int numero) {
-    }
-
-    public record Input(int etage, int numero, double prix) {
-
-    }
-
-    public record State(int etage, int numero, double prix) {
-
-    }
-
-    public State state() {
-        return new State(etage, numero, prix.valeur());
     }
 }
