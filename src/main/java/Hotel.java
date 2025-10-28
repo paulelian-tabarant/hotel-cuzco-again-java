@@ -23,14 +23,14 @@ public class Hotel {
         return new Hotel(chambres);
     }
 
-    public record State(List<Chambre.State> chambres) {
-    }
-
     public State state() {
         return new State(this.chambres.stream().map(Chambre::state).toList());
     }
 
     public void modifierPrixChambresRezDeChaussee(double nouveauPrix) {
         this.chambres.forEach(chambre -> chambre.indiquerPrixRezDeChaussee(nouveauPrix));
+    }
+
+    public record State(List<Chambre.State> chambres) {
     }
 }
