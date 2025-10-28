@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class Hotel {
     private final List<Chambre> chambres;
@@ -42,8 +41,6 @@ public class Hotel {
     }
 
     public void modifierPrixChambresRezDeChaussee(double nouveauPrix) {
-        this.chambres.forEach(chambre -> {
-            chambre.indiquerPrixRezDeChaussee(nouveauPrix);
-        });
+        this.chambres.forEach(chambre -> chambre.indiquerPrixRezDeChaussee(nouveauPrix));
     }
 }
