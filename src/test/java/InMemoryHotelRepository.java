@@ -1,11 +1,13 @@
 public class InMemoryHotelRepository implements HotelRepository {
+    private Hotel hotel;
+
     @Override
     public void enregistrerHotel(Hotel hotel) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.hotel = hotel;
     }
 
     @Override
     public Hotel recupererHotel() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return hotel;
     }
 }
