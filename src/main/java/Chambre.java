@@ -9,30 +9,42 @@ public class Chambre {
         this.prix = prix;
     }
 
+    public static Chambre creer(CreationInput input) {
+        return new Chambre(input.etage(), input.numero(), calculerPrixChambreDepuisPrixRdcEtEtage(100.00, input.etage()));
+    }
+
     public static Chambre reconstruire(int etage, int numero, double prix) {
         return new Chambre(etage, numero, prix);
     }
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {
-        double nouveauPrixFinal;
+        this.prix = calculerPrixChambreDepuisPrixRdcEtEtage(nouveauPrix, this.etage);
+    }
 
+    private static double calculerPrixChambreDepuisPrixRdcEtEtage(double prixRdc, int etage) {
         switch (etage) {
-            case 0 -> nouveauPrixFinal = nouveauPrix;
+            case 0 -> {
+                return prixRdc;
+            }
             // arrondir au centime le plus proche
-            case 1 -> nouveauPrixFinal = Math.round(nouveauPrix * 1.22 * 100.0) / 100.0;
-            default -> nouveauPrixFinal = Math.round(nouveauPrix * 1.33 * 100.0) / 100.0;
+            case 1 -> {
+                return Math.round(prixRdc * 1.22 * 100.0) / 100.0;
+            }
+            default -> {
+                return Math.round(prixRdc * 1.33 * 100.0) / 100.0;
+            }
         }
-
-        this.prix = nouveauPrixFinal;
-    }
-
-    public record Input(int etage, int numero, double prix) {
-    }
-
-    public record State(int etage, int numero, double prix) {
     }
 
     public record CreationInput(int etage, int numero) {
+    }
+
+    public record Input(int etage, int numero, double prix) {
+
+    }
+
+    public record State(int etage, int numero, double prix) {
+
     }
 
     public State state() {
