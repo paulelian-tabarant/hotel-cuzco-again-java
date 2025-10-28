@@ -3,7 +3,7 @@ import java.util.List;
 public class Hotel {
     private final List<Chambre> chambres;
 
-    public Hotel(List<Chambre> chambres) {
+    private Hotel(List<Chambre> chambres) {
         this.chambres = chambres;
     }
 
