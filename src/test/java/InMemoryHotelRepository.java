@@ -1,13 +1,27 @@
+import java.util.List;
+
 public class InMemoryHotelRepository implements HotelRepository {
     private Hotel hotel;
 
     @Override
     public void enregistrerHotel(Hotel hotel) {
-        this.hotel = hotel;
+        this.hotel = copierHotel(hotel);
     }
 
     @Override
     public Hotel recupererHotel() {
-        return hotel;
+        return copierHotel(this.hotel);
+    }
+
+    private Hotel copierHotel(Hotel hotel) {
+        List<Chambre.Input> chambreInputs = hotel.state().chambres().stream()
+                .map(chambreState -> new Chambre.Input(
+                        chambreState.etage(),
+                        chambreState.numero(),
+                        chambreState.prix()
+                ))
+                .toList();
+
+        return Hotel.reconstruire(chambreInputs);
     }
 }

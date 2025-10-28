@@ -24,4 +24,25 @@ public class HotelRepositoryTest {
                 new Chambre.State(2, 20, 133.0))
         );
     }
+
+    @Test
+    public void neDoitPasModifierLesChambresTantQuellesNeSontPasEnregistrees() {
+        HotelRepository repository = new InMemoryHotelRepository();
+
+        Hotel hotel = Hotel.reconstruire(List.of(
+                new Chambre.Input(0, 1, 100.0),
+                new Chambre.Input(1, 10, 122.0)
+        ));
+
+        repository.enregistrerHotel(hotel);
+
+        hotel.modifierPrixChambresRezDeChaussee(10.0);
+
+        Hotel hotelRecupere = repository.recupererHotel();
+
+        assertThat(hotelRecupere.state().chambres()).hasSameElementsAs(List.of(
+                new Chambre.State(0, 1, 100.0),
+                new Chambre.State(1, 10, 122.0)
+        ));
+    }
 }
