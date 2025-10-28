@@ -1,11 +1,15 @@
 import java.util.List;
 
 public class ConsulterChambres {
-    public ConsulterChambres(HotelRepository hotelRepository) {
+    private final HotelRepository hotelRepository;
 
+    public ConsulterChambres(HotelRepository hotelRepository) {
+        this.hotelRepository = hotelRepository;
     }
 
-    public List<Chambre> executer() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public List<Chambre.State> executer() {
+        Hotel hotel = hotelRepository.recupererHotel();
+
+        return hotel.state().chambres();
     }
 }

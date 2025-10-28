@@ -16,8 +16,7 @@ public class Chambre {
     public record Input(int etage, int numero, double prix) {
     }
 
-    // TODO: simplifier par héritage ?
-    public record State (int etage, int numero, double prix) {
+    public record State(int etage, int numero, double prix) {
     }
 
     public record CreationInput(int etage, int numero) {

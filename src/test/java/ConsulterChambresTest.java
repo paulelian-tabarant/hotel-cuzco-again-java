@@ -16,10 +16,9 @@ public class ConsulterChambresTest {
         )));
         ConsulterChambres consulterChambres = new ConsulterChambres(repository);
 
-        List<Chambre> chambres = consulterChambres.executer();
+        List<Chambre.State> chambres = consulterChambres.executer();
 
-        List<Chambre.State> chambreStates = chambres.stream().map(Chambre::state).toList();
-        assertThat(chambreStates).hasSameElementsAs(List.of(
+        assertThat(chambres).hasSameElementsAs(List.of(
                 new Chambre.State(0, 3, 100.0),
                 new Chambre.State(0, 4, 100.0),
                 new Chambre.State(1, 11, 122.0),
