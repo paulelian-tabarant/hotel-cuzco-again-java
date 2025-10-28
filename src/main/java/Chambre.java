@@ -1,9 +1,18 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Chambre {
     private final int etage;
     private final int numero;
     private PrixEnEuros prix;
 
     private static final PrixEnEuros PRIX_REZ_DE_CHAUSSEE_INITIAL = new PrixEnEuros(100.00);
+
+    private static final Map<Integer, Double> POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE = new HashMap<>() {{
+        put(0, 0.0);
+        put(1, 22.0);
+        put(2, 33.0);
+    }};
 
     private Chambre(int etage, int numero, PrixEnEuros prix) {
         this.etage = etage;
@@ -15,7 +24,7 @@ public class Chambre {
     }
 
     public static Chambre creer(CreationInput input) {
-        return new Chambre(input.etage(), input.numero(), calculerPrixChambreDepuisPrixRdcEtEtage(PRIX_REZ_DE_CHAUSSEE_INITIAL, input.etage()));
+        return new Chambre(input.etage(), input.numero(), PRIX_REZ_DE_CHAUSSEE_INITIAL.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(input.etage())));
     }
 
     public record Input(int etage, int numero, double prix) {
@@ -26,7 +35,8 @@ public class Chambre {
     }
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {
-        this.prix = calculerPrixChambreDepuisPrixRdcEtEtage(new PrixEnEuros(nouveauPrix), etage);
+        PrixEnEuros prixRdc = new PrixEnEuros(nouveauPrix);
+        this.prix = prixRdc.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(etage));
     }
 
     public record State(int etage, int numero, double prix) {
@@ -36,17 +46,4 @@ public class Chambre {
         return new State(etage, numero, prix.valeur());
     }
 
-    private static PrixEnEuros calculerPrixChambreDepuisPrixRdcEtEtage(PrixEnEuros prixRdc, int etage) {
-        switch (etage) {
-            case 0 -> {
-                return prixRdc;
-            }
-            case 1 -> {
-                return prixRdc.augmenteDe(22);
-            }
-            default -> {
-                return prixRdc.augmenteDe(33);
-            }
-        }
-    }
 }
