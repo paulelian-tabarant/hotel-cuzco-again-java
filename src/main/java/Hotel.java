@@ -1,9 +1,7 @@
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Hotel {
-    public record State(List<Chambre.State> chambres) {
-    }
-
     private final List<Chambre> chambres;
 
     public Hotel(List<Chambre> chambres) {
@@ -36,7 +34,16 @@ public class Hotel {
         return new Hotel(chambres);
     }
 
+    public record State(List<Chambre.State> chambres) {
+    }
+
     public State state() {
         return new State(this.chambres.stream().map(Chambre::state).toList());
+    }
+
+    public void modifierPrixChambresRezDeChaussee(double nouveauPrix) {
+        this.chambres.forEach(chambre -> {
+            chambre.indiquerPrixRezDeChaussee(nouveauPrix);
+        });
     }
 }
