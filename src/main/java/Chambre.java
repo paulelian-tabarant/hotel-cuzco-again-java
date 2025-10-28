@@ -8,6 +8,7 @@ public class Chambre {
         put(1, 22.0);
         put(2, 33.0);
     }};
+
     private final int etage;
     private final int numero;
     private PrixEnEuros prix;
