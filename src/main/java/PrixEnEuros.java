@@ -1,9 +1,19 @@
 public record PrixEnEuros(double valeur) {
+    public PrixEnEuros(double valeur) {
+        if (valeur < 0) {
+            throw new IllegalArgumentException("Le prix ne peut pas être négatif.");
+        }
+
+        this.valeur = arrondirAuCentime(valeur);
+    }
 
     public PrixEnEuros augmenteDe(double pourcentage) {
         double nouvelleValeur = this.valeur * (1 + pourcentage / 100);
-        double valeurArrondie = Math.round(nouvelleValeur * 100.0) / 100.0;
 
-        return new PrixEnEuros(valeurArrondie);
+        return new PrixEnEuros(nouvelleValeur);
+    }
+
+    private static double arrondirAuCentime(double valeur) {
+        return Math.round(valeur * 100.0) / 100.0;
     }
 }
