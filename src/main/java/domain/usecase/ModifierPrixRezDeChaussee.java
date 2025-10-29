@@ -1,3 +1,8 @@
+package domain.usecase;
+
+import domain.entity.Hotel;
+import domain.repository.HotelRepository;
+
 public class ModifierPrixRezDeChaussee {
     private final HotelRepository hotelRepository;
 

@@ -1,3 +1,9 @@
+package domain.usecase;
+
+import domain.entity.Chambre;
+import domain.entity.Hotel;
+import domain.repository.HotelRepository;
+
 import java.util.List;
 
 public class ConsulterChambres {

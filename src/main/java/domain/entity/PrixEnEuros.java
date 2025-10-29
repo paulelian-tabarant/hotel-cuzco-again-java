@@ -1,3 +1,5 @@
+package domain.entity;
+
 public record PrixEnEuros(double valeur) {
     public PrixEnEuros(double valeur) {
         if (valeur < 0) {

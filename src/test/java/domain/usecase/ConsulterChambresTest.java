@@ -1,4 +1,10 @@
+package domain.usecase;
+
+import domain.entity.Chambre;
+import domain.entity.Hotel;
+import domain.repository.HotelRepository;
 import org.junit.jupiter.api.Test;
+import serverside.InMemoryHotelRepository;
 
 import java.util.List;
 

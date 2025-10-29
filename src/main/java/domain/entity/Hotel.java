@@ -1,3 +1,5 @@
+package domain.entity;
+
 import java.util.List;
 
 public class Hotel {
