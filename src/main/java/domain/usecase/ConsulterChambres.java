@@ -13,7 +13,7 @@ public class ConsulterChambres {
         this.hotelRepository = hotelRepository;
     }
 
-    public List<Chambre.State> executer() {
+    public List<Chambre.Lecture> executer() {
         Hotel hotel = hotelRepository.recupererHotel();
 
         return hotel.state().chambres();

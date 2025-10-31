@@ -12,23 +12,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ConsulterChambresTest {
     @Test
-    public void doitListerLesChambreAvecPrixAdapteAuxEtagesQuandLePrixEstCeluiParDefaut() {
+    public void doitListerLesChambresAvecPrixAdapteAuxEtagesQuandLePrixEstCeluiParDefaut() {
         HotelRepository repository = new InMemoryHotelRepository();
         repository.enregistrerHotel(Hotel.creer(List.of(
-                new Chambre.CreationInput(0, 3),
-                new Chambre.CreationInput(0, 4),
-                new Chambre.CreationInput(1, 11),
-                new Chambre.CreationInput(2, 25)
+                new Chambre.Creation(0, 3),
+                new Chambre.Creation(0, 4),
+                new Chambre.Creation(1, 11),
+                new Chambre.Creation(2, 25)
         )));
         ConsulterChambres consulterChambres = new ConsulterChambres(repository);
 
-        List<Chambre.State> chambres = consulterChambres.executer();
+        List<Chambre.Lecture> chambres = consulterChambres.executer();
 
         assertThat(chambres).hasSameElementsAs(List.of(
-                new Chambre.State(0, 3, 100.0),
-                new Chambre.State(0, 4, 100.0),
-                new Chambre.State(1, 11, 122.0),
-                new Chambre.State(2, 25, 133.0))
+                new Chambre.Lecture(0, 3, 100.0),
+                new Chambre.Lecture(0, 4, 100.0),
+                new Chambre.Lecture(1, 11, 122.0),
+                new Chambre.Lecture(2, 25, 133.0))
         );
     }
 }

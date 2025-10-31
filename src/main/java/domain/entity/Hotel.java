@@ -9,7 +9,7 @@ public class Hotel {
         this.chambres = chambres;
     }
 
-    public static Hotel creer(List<Chambre.CreationInput> donneesCreationChambres) {
+    public static Hotel creer(List<Chambre.Creation> donneesCreationChambres) {
         List<Chambre> chambres = donneesCreationChambres.stream()
                 .map(Chambre::creer)
                 .toList();
@@ -17,7 +17,7 @@ public class Hotel {
         return new Hotel(chambres);
     }
 
-    public static Hotel reconstruire(List<Chambre.Input> chambresExistantes) {
+    public static Hotel reconstruire(List<Chambre.Reconstruction> chambresExistantes) {
         List<Chambre> chambres = chambresExistantes.stream()
                 .map(input -> Chambre.reconstruire(input.etage(), input.numero(), input.prix()))
                 .toList();
@@ -33,6 +33,6 @@ public class Hotel {
         this.chambres.forEach(chambre -> chambre.indiquerPrixRezDeChaussee(nouveauPrix));
     }
 
-    public record State(List<Chambre.State> chambres) {
+    public record State(List<Chambre.Lecture> chambres) {
     }
 }

@@ -21,8 +21,14 @@ public class Chambre {
         this.prix = prix;
     }
 
-    public static Chambre creer(CreationInput input) {
+    public record Creation(int etage, int numero) {
+    }
+
+    public static Chambre creer(Creation input) {
         return new Chambre(input.etage(), input.numero(), PRIX_REZ_DE_CHAUSSEE_INITIAL.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(input.etage())));
+    }
+
+    public record Reconstruction(int etage, int numero, double prix) {
     }
 
     public static Chambre reconstruire(int etage, int numero, double prix) {
@@ -34,16 +40,10 @@ public class Chambre {
         this.prix = prixRdc.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(etage));
     }
 
-    public State state() {
-        return new State(etage, numero, prix.valeur());
+    public Lecture state() {
+        return new Lecture(etage, numero, prix.valeur());
     }
 
-    public record CreationInput(int etage, int numero) {
-    }
-
-    public record Input(int etage, int numero, double prix) {
-    }
-
-    public record State(int etage, int numero, double prix) {
+    public record Lecture(int etage, int numero, double prix) {
     }
 }
