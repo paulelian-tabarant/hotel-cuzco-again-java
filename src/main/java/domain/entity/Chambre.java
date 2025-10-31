@@ -31,8 +31,8 @@ public class Chambre {
     public record Reconstruction(int etage, int numero, double prix) {
     }
 
-    public static Chambre reconstruire(int etage, int numero, double prix) {
-        return new Chambre(etage, numero, new PrixEnEuros(prix));
+    public static Chambre reconstruire(Reconstruction donnees) {
+        return new Chambre(donnees.etage(), donnees.numero(), new PrixEnEuros(donnees.prix()));
     }
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {

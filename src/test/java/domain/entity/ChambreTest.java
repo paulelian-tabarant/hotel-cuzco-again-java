@@ -8,7 +8,7 @@ class ChambreTest {
 
     @Test
     void doitArrondirLePrixAuCentimeLePlusProche() {
-        Chambre chambre = Chambre.reconstruire(1, 1, 100);
+        Chambre chambre = Chambre.reconstruire(new Chambre.Reconstruction(1, 5, 123.45));
 
         chambre.indiquerPrixRezDeChaussee(120.99);
 

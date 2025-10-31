@@ -19,7 +19,7 @@ public class Hotel {
 
     public static Hotel reconstruire(List<Chambre.Reconstruction> chambresExistantes) {
         List<Chambre> chambres = chambresExistantes.stream()
-                .map(input -> Chambre.reconstruire(input.etage(), input.numero(), input.prix()))
+                .map(donnees -> Chambre.reconstruire(donnees))
                 .toList();
 
         return new Hotel(chambres);
