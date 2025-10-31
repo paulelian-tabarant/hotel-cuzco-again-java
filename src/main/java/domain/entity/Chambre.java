@@ -40,10 +40,10 @@ public class Chambre {
         this.prix = prixRdc.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(etage));
     }
 
-    public Lecture state() {
-        return new Lecture(etage, numero, prix.valeur());
+    public record Lecture(int etage, int numero, double prix) {
     }
 
-    public record Lecture(int etage, int numero, double prix) {
+    public Lecture state() {
+        return new Lecture(etage, numero, prix.valeur());
     }
 }
