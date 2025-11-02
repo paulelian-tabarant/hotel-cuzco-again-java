@@ -44,6 +44,16 @@ class HotelCliControllerTest {
     }
 
     @Test
+    void doitConfirmerLaModificationDuPrixDuRezDeChaussee() {
+        SortieCliSpy sortieCli = new SortieCliSpy();
+
+        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        controller.executerCommande("rdc 120.00");
+
+        assertThat(sortieCli.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
+    }
+
+    @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
         SortieCliSpy sortieCli = new SortieCliSpy();
         HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);

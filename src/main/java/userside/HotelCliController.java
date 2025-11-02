@@ -28,10 +28,14 @@ public class HotelCliController {
 
         if (commande.startsWith("rdc")) {
             String[] parties = commande.split(" ");
-            if (parties.length == 2) {
-                double nouveauPrix = Double.parseDouble(parties[1]);
-                modifierPrixRezDeChaussee.executer(nouveauPrix);
-            }
+            double nouveauPrix = Double.parseDouble(parties[1]);
+
+            modifierPrixRezDeChaussee.executer(nouveauPrix);
+
+            String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
+            sortie.afficherLigne(String.format(formatConfirmation, nouveauPrix));
+
+            return;
         }
 
         sortie.afficherLigne("Erreur : commande inconnue.");
