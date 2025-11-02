@@ -4,14 +4,13 @@ import domain.entity.Chambre;
 import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HotelCliControllerTest {
+class HotelControllerTest {
     ConsulterChambres consulterChambres = Mockito.mock(ConsulterChambres.class);
     ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = Mockito.mock(ModifierPrixRezDeChaussee.class);
 
@@ -23,7 +22,7 @@ class HotelCliControllerTest {
                 new Chambre.Lecture(1, 101, 148.70)
         ));
 
-        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("chambres");
 
         assertThat(sortieCli.lignes()).isEqualTo(List.of(
@@ -37,7 +36,7 @@ class HotelCliControllerTest {
     void doitExecuterLaFonctionnaliteDeModificationDuPrixDuRezDeChaussee() {
         SortieCliSpy sortieCli = new SortieCliSpy();
 
-        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc 120.00");
 
         Mockito.verify(modifierPrixRezDeChaussee).executer(120.00);
@@ -47,7 +46,7 @@ class HotelCliControllerTest {
     void doitConfirmerLaModificationDuPrixDuRezDeChaussee() {
         SortieCliSpy sortieCli = new SortieCliSpy();
 
-        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc 120.00");
 
         assertThat(sortieCli.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
@@ -58,7 +57,7 @@ class HotelCliControllerTest {
     @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
         SortieCliSpy sortieCli = new SortieCliSpy();
-        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("commande_inconnue");
 
         assertThat(sortieCli.lignes()).isEqualTo(List.of(

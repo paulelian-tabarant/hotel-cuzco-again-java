@@ -3,12 +3,12 @@ package userside;
 import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 
-public class HotelCliController {
+public class HotelController {
     private final SortieCli sortie;
     private final ConsulterChambres consulterChambres;
     private final ModifierPrixRezDeChaussee modifierPrixRezDeChaussee;
 
-    public HotelCliController(SortieCli sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
+    public HotelController(SortieCli sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
         this.sortie = sortie;
         this.consulterChambres = consulterChambres;
         this.modifierPrixRezDeChaussee = modifierPrixRezDeChaussee;
