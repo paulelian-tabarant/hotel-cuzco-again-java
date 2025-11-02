@@ -29,12 +29,19 @@ public class HotelController {
 
         if (commande.startsWith("rdc")) {
             String[] parties = commande.split(" ");
-            double nouveauPrix = Double.parseDouble(parties[1]);
+            try {
+                double nouveauPrix = Double.parseDouble(parties[1]);
+                if (nouveauPrix < 0) {
+                    throw new IllegalArgumentException();
+                }
 
-            modifierPrixRezDeChaussee.executer(nouveauPrix);
+                modifierPrixRezDeChaussee.executer(nouveauPrix);
 
-            String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
-            sortie.afficherLigne(String.format(formatConfirmation, nouveauPrix));
+                String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
+                sortie.afficherLigne(String.format(formatConfirmation, nouveauPrix));
+            } catch (Exception e) {
+                sortie.afficherLigne("Erreur : prix saisi invalide");
+            }
 
             return;
         }

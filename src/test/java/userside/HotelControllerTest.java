@@ -4,6 +4,8 @@ import domain.entity.Chambre;
 import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -52,7 +54,16 @@ class HotelControllerTest {
         assertThat(sortieSpy.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
     }
 
-    // TODO: test pour gestion des erreurs de saisie (ex: "rdc abc", "rdc -50", etc.)
+    @ParameterizedTest
+    @ValueSource(strings = {"abc", "-50", ""})
+    void doitAfficherMessageErreurQuandPrixFourniEstInvalide(String prixInvalide) {
+        SortieCliSpy sortieSpy = new SortieCliSpy();
+
+        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
+        controller.executerCommande("rdc" + " " + prixInvalide);
+
+        assertThat(sortieSpy.lignes()).isEqualTo(List.of("Erreur : prix saisi invalide"));
+    }
 
     @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
