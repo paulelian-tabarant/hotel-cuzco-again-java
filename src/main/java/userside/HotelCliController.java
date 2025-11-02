@@ -23,6 +23,7 @@ public class HotelCliController {
                 String formatAffichage = "Etage: %d, Numéro: %d, Prix: %.2f€";
                 sortie.afficherLigne(String.format(formatAffichage, chambre.etage(), chambre.numero(), chambre.prix()));
             });
+
             return;
         }
 
