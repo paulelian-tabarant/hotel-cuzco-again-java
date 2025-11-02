@@ -16,16 +16,16 @@ class HotelControllerTest {
 
     @Test
     void doitExecuterLaFonctionnaliteDeListingDesChambres() {
-        SortieCliSpy sortieCli = new SortieCliSpy();
+        SortieCliSpy sortieSpy = new SortieCliSpy();
         Mockito.when(consulterChambres.executer()).thenReturn(List.of(
                 new Chambre.Lecture(0, 1, 100.00),
                 new Chambre.Lecture(1, 101, 148.70)
         ));
 
-        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("chambres");
 
-        assertThat(sortieCli.lignes()).isEqualTo(List.of(
+        assertThat(sortieSpy.lignes()).isEqualTo(List.of(
                 "Liste des chambres disponibles :",
                 "Etage: 0, Numéro: 1, Prix: 100,00€",
                 "Etage: 1, Numéro: 101, Prix: 148,70€"
@@ -34,9 +34,9 @@ class HotelControllerTest {
 
     @Test
     void doitExecuterLaFonctionnaliteDeModificationDuPrixDuRezDeChaussee() {
-        SortieCliSpy sortieCli = new SortieCliSpy();
+        SortieCliSpy sortieSpy = new SortieCliSpy();
 
-        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc 120.00");
 
         Mockito.verify(modifierPrixRezDeChaussee).executer(120.00);
@@ -56,11 +56,11 @@ class HotelControllerTest {
 
     @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
-        SortieCliSpy sortieCli = new SortieCliSpy();
-        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        SortieCliSpy sortieSpy = new SortieCliSpy();
+        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("commande_inconnue");
 
-        assertThat(sortieCli.lignes()).isEqualTo(List.of(
+        assertThat(sortieSpy.lignes()).isEqualTo(List.of(
                 "Erreur : commande inconnue."
         ));
     }
