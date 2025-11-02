@@ -46,15 +46,11 @@ public class HotelController {
         return lignes;
     }
 
-    private List<String> executerModifierPrixRdc(String[] parties) {
-        if (parties.length != 2) {
-            return List.of("Erreur : prix saisi invalide");
-        }
-
+    private List<String> executerModifierPrixRdc(String[] args) {
         List<String> lignes = new ArrayList<>();
 
         try {
-            double nouveauPrix = Double.parseDouble(parties[1]);
+            double nouveauPrix = Double.parseDouble(args[1]);
             if (nouveauPrix < 0) {
                 return List.of("Erreur : prix saisi invalide");
             }
@@ -64,7 +60,7 @@ public class HotelController {
             String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
             lignes.add(String.format(formatConfirmation, nouveauPrix));
 
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             lignes.add("Erreur : prix saisi invalide");
         }
 
