@@ -44,12 +44,12 @@ class HotelControllerTest {
 
     @Test
     void doitConfirmerLaModificationDuPrixDuRezDeChaussee() {
-        SortieCliSpy sortieCli = new SortieCliSpy();
+        SortieCliSpy sortieSpy = new SortieCliSpy();
 
-        HotelController controller = new HotelController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc 120.00");
 
-        assertThat(sortieCli.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
+        assertThat(sortieSpy.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
     }
 
     // TODO: test pour gestion des erreurs de saisie (ex: "rdc abc", "rdc -50", etc.)
