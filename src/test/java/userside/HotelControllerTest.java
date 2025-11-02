@@ -60,8 +60,6 @@ class HotelControllerTest {
         HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("commande_inconnue");
 
-        assertThat(sortieSpy.lignes()).isEqualTo(List.of(
-                "Erreur : commande inconnue."
-        ));
+        assertThat(sortieSpy.lignes()).isEqualTo(List.of("Erreur : commande inconnue."));
     }
 }
