@@ -12,6 +12,11 @@ public class HotelCliController {
     }
 
     public void executerCommande(String listerChambres) {
+        if (!"chambres".equals(listerChambres)) {
+            cliOutput.afficherLigne("Erreur : commande inconnue.");
+            return;
+        }
+
         var chambres = consulterChambres.executer();
 
         cliOutput.afficherLigne("Liste des chambres disponibles :");

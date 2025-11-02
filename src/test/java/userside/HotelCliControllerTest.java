@@ -29,4 +29,17 @@ class HotelCliControllerTest {
                 "Etage: 1, Numéro: 101, Prix: 148,70€"
         ));
     }
+
+    @Test
+    void doitAfficherMessageErreurQuandCommandeInconnue() {
+        SortieCliSpy sortieCli = new SortieCliSpy();
+        ConsulterChambres consulterChambres = Mockito.mock(ConsulterChambres.class);
+
+        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres);
+        controller.executerCommande("commande_inconnue");
+
+        assertThat(sortieCli.lignes()).isEqualTo(List.of(
+                "Erreur : commande inconnue."
+        ));
+    }
 }
