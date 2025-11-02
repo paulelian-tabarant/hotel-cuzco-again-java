@@ -3,6 +3,9 @@ package userside;
 import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HotelController {
     private final SortieCli sortie;
     private final ConsulterChambres consulterChambres;
@@ -15,43 +18,56 @@ public class HotelController {
     }
 
     public void executerCommande(String commande) {
+        List<String> lignes = new ArrayList<>();
+
         if (commande.equals("chambres")) {
-            var chambres = consulterChambres.executer();
-
-            sortie.afficherLigne("Liste des chambres disponibles :");
-            chambres.forEach(chambre -> {
-                String formatAffichage = "Etage: %d, Numéro: %d, Prix: %.2f€";
-                sortie.afficherLigne(String.format(formatAffichage, chambre.etage(), chambre.numero(), chambre.prix()));
-            });
-
-            return;
-        }
-
-        if (commande.startsWith("rdc")) {
+            lignes = executerConsulterChambres();
+        } else if (commande.startsWith("rdc")) {
             String[] parties = commande.split(" ");
-            if (parties.length != 2) {
-                sortie.afficherLigne("Erreur : prix saisi invalide");
-                return;
-            }
-
-            try {
-                double nouveauPrix = Double.parseDouble(parties[1]);
-                if (nouveauPrix < 0) {
-                    sortie.afficherLigne("Erreur : prix saisi invalide");
-                    return;
-                }
-
-                modifierPrixRezDeChaussee.executer(nouveauPrix);
-
-                String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
-                sortie.afficherLigne(String.format(formatConfirmation, nouveauPrix));
-            } catch (NumberFormatException e) {
-                sortie.afficherLigne("Erreur : prix saisi invalide");
-            }
-
-            return;
+            lignes = executerModifierPrixRdc(parties);
+        } else {
+            lignes.add("Erreur : commande inconnue.");
         }
 
-        sortie.afficherLigne("Erreur : commande inconnue.");
+        lignes.forEach(sortie::afficherLigne);
+    }
+
+    private List<String> executerConsulterChambres() {
+        List<String> lignes = new ArrayList<>();
+
+        var chambres = consulterChambres.executer();
+        lignes.add("Liste des chambres disponibles :");
+
+        chambres.forEach(chambre -> {
+            String formatAffichage = "Etage: %d, Numéro: %d, Prix: %.2f€";
+            lignes.add(String.format(formatAffichage, chambre.etage(), chambre.numero(), chambre.prix()));
+        });
+
+        return lignes;
+    }
+
+    private List<String> executerModifierPrixRdc(String[] parties) {
+        if (parties.length != 2) {
+            return List.of("Erreur : prix saisi invalide");
+        }
+
+        List<String> lignes = new ArrayList<>();
+
+        try {
+            double nouveauPrix = Double.parseDouble(parties[1]);
+            if (nouveauPrix < 0) {
+                return List.of("Erreur : prix saisi invalide");
+            }
+
+            modifierPrixRezDeChaussee.executer(nouveauPrix);
+
+            String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
+            lignes.add(String.format(formatConfirmation, nouveauPrix));
+
+        } catch (NumberFormatException e) {
+            lignes.add("Erreur : prix saisi invalide");
+        }
+
+        return lignes;
     }
 }
