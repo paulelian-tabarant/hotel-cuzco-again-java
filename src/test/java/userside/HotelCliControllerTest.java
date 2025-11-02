@@ -53,6 +53,8 @@ class HotelCliControllerTest {
         assertThat(sortieCli.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
     }
 
+    // TODO: test pour gestion des erreurs de saisie (ex: "rdc abc", "rdc -50", etc.)
+
     @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
         SortieCliSpy sortieCli = new SortieCliSpy();
