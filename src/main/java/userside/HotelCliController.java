@@ -1,12 +1,13 @@
 package userside;
 
 import domain.usecase.ConsulterChambres;
+import domain.usecase.ModifierPrixRezDeChaussee;
 
 public class HotelCliController {
     private final SortieCli sortie;
     private final ConsulterChambres consulterChambres;
 
-    public HotelCliController(SortieCli sortie, ConsulterChambres consulterChambres) {
+    public HotelCliController(SortieCli sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
         this.sortie = sortie;
         this.consulterChambres = consulterChambres;
     }
