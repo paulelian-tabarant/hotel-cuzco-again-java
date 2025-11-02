@@ -4,6 +4,7 @@ import domain.entity.Chambre;
 import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -30,6 +31,16 @@ class HotelCliControllerTest {
                 "Etage: 0, Numéro: 1, Prix: 100,00€",
                 "Etage: 1, Numéro: 101, Prix: 148,70€"
         ));
+    }
+
+    @Test
+    void doitExecuterLaFonctionnaliteDeModificationDuPrixDuRezDeChaussee() {
+        SortieCliSpy sortieCli = new SortieCliSpy();
+
+        HotelCliController controller = new HotelCliController(sortieCli, consulterChambres, modifierPrixRezDeChaussee);
+        controller.executerCommande("rdc 120.00");
+
+        Mockito.verify(modifierPrixRezDeChaussee).executer(120.00);
     }
 
     @Test
