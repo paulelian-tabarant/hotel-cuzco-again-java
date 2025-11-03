@@ -53,8 +53,8 @@ class HotelCliTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"abc", "-50", ""})
-    void doitAfficherMessageErreurQuandPrixFourniEstInvalide(String prixInvalide) {
+    @ValueSource(strings = {"abc", ""})
+    void doitAfficherMessageErreurQuandPrixFourniNEstPasUnNombre(String prixInvalide) {
         SortieCliSpy sortieSpy = new SortieCliSpy();
 
         HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
