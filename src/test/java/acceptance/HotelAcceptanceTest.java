@@ -7,7 +7,7 @@ import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 import org.junit.jupiter.api.Test;
 import serverside.InMemoryHotelRepository;
-import userside.HotelController;
+import userside.HotelCli;
 import userside.SortieCliSpy;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class HotelAcceptanceTest {
         SortieCliSpy sortie = new SortieCliSpy();
         ConsulterChambres consulterChambres = new ConsulterChambres(hotelRepository);
         ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = new ModifierPrixRezDeChaussee(hotelRepository);
-        HotelController controller = new HotelController(sortie, consulterChambres, modifierPrixRezDeChaussee);
+        HotelCli controller = new HotelCli(sortie, consulterChambres, modifierPrixRezDeChaussee);
 
         controller.executerCommande("rdc 120.00");
         controller.executerCommande("chambres");

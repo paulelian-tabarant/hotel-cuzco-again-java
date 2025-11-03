@@ -6,12 +6,12 @@ import domain.usecase.ModifierPrixRezDeChaussee;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelController {
+public class HotelCli {
     private final SortieCli sortie;
     private final ConsulterChambres consulterChambres;
     private final ModifierPrixRezDeChaussee modifierPrixRezDeChaussee;
 
-    public HotelController(SortieCli sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
+    public HotelCli(SortieCli sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
         this.sortie = sortie;
         this.consulterChambres = consulterChambres;
         this.modifierPrixRezDeChaussee = modifierPrixRezDeChaussee;

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HotelControllerTest {
+class HotelCliTest {
     ConsulterChambres consulterChambres = Mockito.mock(ConsulterChambres.class);
     ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = Mockito.mock(ModifierPrixRezDeChaussee.class);
 
@@ -24,7 +24,7 @@ class HotelControllerTest {
                 new Chambre.LectureDto(1, 101, 148.70)
         ));
 
-        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
+        HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("chambres");
 
         assertThat(sortieSpy.lignes()).isEqualTo(List.of(
@@ -35,20 +35,10 @@ class HotelControllerTest {
     }
 
     @Test
-    void doitExecuterLaFonctionnaliteDeModificationDuPrixDuRezDeChaussee() {
-        SortieCliSpy sortieSpy = new SortieCliSpy();
-
-        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
-        controller.executerCommande("rdc 120.00");
-
-        Mockito.verify(modifierPrixRezDeChaussee).executer(120.00);
-    }
-
-    @Test
     void doitConfirmerLaModificationDuPrixDuRezDeChaussee() {
         SortieCliSpy sortieSpy = new SortieCliSpy();
 
-        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
+        HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc 120.00");
 
         assertThat(sortieSpy.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));
@@ -59,7 +49,7 @@ class HotelControllerTest {
     void doitAfficherMessageErreurQuandPrixFourniEstInvalide(String prixInvalide) {
         SortieCliSpy sortieSpy = new SortieCliSpy();
 
-        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
+        HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc" + " " + prixInvalide);
 
         assertThat(sortieSpy.lignes()).isEqualTo(List.of("Erreur : prix saisi invalide"));
@@ -68,7 +58,7 @@ class HotelControllerTest {
     @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
         SortieCliSpy sortieSpy = new SortieCliSpy();
-        HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
+        HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("commande_inconnue");
 
         assertThat(sortieSpy.lignes()).isEqualTo(List.of("Erreur : commande inconnue."));
