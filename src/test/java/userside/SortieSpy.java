@@ -3,7 +3,7 @@ package userside;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SortieCliSpy implements SortieCli {
+public class SortieSpy implements Sortie {
     private final List<String> lignes = new ArrayList<>();
 
     public List<String> lignes() {

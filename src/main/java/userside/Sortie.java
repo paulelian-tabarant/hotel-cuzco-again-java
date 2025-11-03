@@ -1,5 +1,5 @@
 package userside;
 
-public interface SortieCli {
+public interface Sortie {
     void afficherLigne(String ligne);
 }

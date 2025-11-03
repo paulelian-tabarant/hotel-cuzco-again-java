@@ -18,7 +18,7 @@ class HotelCliTest {
 
     @Test
     void doitExecuterLaFonctionnaliteDeListingDesChambres() {
-        SortieCliSpy sortieSpy = new SortieCliSpy();
+        SortieSpy sortieSpy = new SortieSpy();
         Mockito.when(consulterChambres.executer()).thenReturn(List.of(
                 new Chambre.LectureDto(0, 1, 100.00),
                 new Chambre.LectureDto(1, 101, 148.70)
@@ -36,7 +36,7 @@ class HotelCliTest {
 
     @Test
     void doitConfirmerLaModificationDuPrixDuRezDeChaussee() {
-        SortieCliSpy sortieSpy = new SortieCliSpy();
+        SortieSpy sortieSpy = new SortieSpy();
 
         HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
 
@@ -55,7 +55,7 @@ class HotelCliTest {
     @ParameterizedTest
     @ValueSource(strings = {"abc", ""})
     void doitAfficherMessageErreurQuandPrixFourniNEstPasUnNombre(String prixInvalide) {
-        SortieCliSpy sortieSpy = new SortieCliSpy();
+        SortieSpy sortieSpy = new SortieSpy();
 
         HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("rdc" + " " + prixInvalide);
@@ -65,7 +65,7 @@ class HotelCliTest {
 
     @Test
     void doitAfficherMessageErreurQuandCommandeInconnue() {
-        SortieCliSpy sortieSpy = new SortieCliSpy();
+        SortieSpy sortieSpy = new SortieSpy();
         HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
         controller.executerCommande("commande_inconnue");
 

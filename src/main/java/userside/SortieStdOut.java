@@ -1,6 +1,6 @@
 package userside;
 
-public class SortieCliStdOut implements SortieCli {
+public class SortieStdOut implements Sortie {
     @Override
     public void afficherLigne(String ligne) {
         IO.println(ligne);

@@ -1,5 +1,3 @@
-package acceptance;
-
 import domain.entity.Chambre;
 import domain.entity.Hotel;
 import domain.repository.HotelRepository;
@@ -8,7 +6,7 @@ import domain.usecase.ModifierPrixRezDeChaussee;
 import org.junit.jupiter.api.Test;
 import serverside.InMemoryHotelRepository;
 import userside.HotelCli;
-import userside.SortieCliSpy;
+import userside.SortieSpy;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class HotelAcceptanceTest {
         HotelRepository hotelRepository = new InMemoryHotelRepository();
         hotelRepository.enregistrerHotel(hotelInitial);
 
-        SortieCliSpy sortie = new SortieCliSpy();
+        SortieSpy sortie = new SortieSpy();
         ConsulterChambres consulterChambres = new ConsulterChambres(hotelRepository);
         ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = new ModifierPrixRezDeChaussee(hotelRepository);
         HotelCli controller = new HotelCli(sortie, consulterChambres, modifierPrixRezDeChaussee);

@@ -5,8 +5,8 @@ import domain.usecase.ConsulterChambres;
 import domain.usecase.ModifierPrixRezDeChaussee;
 import serverside.InMemoryHotelRepository;
 import userside.HotelCli;
-import userside.SortieCli;
-import userside.SortieCliStdOut;
+import userside.Sortie;
+import userside.SortieStdOut;
 
 void main() {
     Hotel hotelInitial = Hotel.creer(List.of(
@@ -20,7 +20,7 @@ void main() {
     HotelRepository hotelRepository = new InMemoryHotelRepository();
     hotelRepository.enregistrerHotel(hotelInitial);
 
-    SortieCli sortie = new SortieCliStdOut();
+    Sortie sortie = new SortieStdOut();
     ConsulterChambres consulterChambres = new ConsulterChambres(hotelRepository);
     ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = new ModifierPrixRezDeChaussee(hotelRepository);
     HotelCli controller = new HotelCli(sortie, consulterChambres, modifierPrixRezDeChaussee);

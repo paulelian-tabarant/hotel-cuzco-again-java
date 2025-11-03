@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelCli {
-    private final SortieCli sortie;
+    private final Sortie sortie;
     private final ConsulterChambres consulterChambres;
     private final ModifierPrixRezDeChaussee modifierPrixRezDeChaussee;
 
-    public HotelCli(SortieCli sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
+    public HotelCli(Sortie sortie, ConsulterChambres consulterChambres, ModifierPrixRezDeChaussee modifierPrixRezDeChaussee) {
         this.sortie = sortie;
         this.consulterChambres = consulterChambres;
         this.modifierPrixRezDeChaussee = modifierPrixRezDeChaussee;
