@@ -51,9 +51,6 @@ public class HotelCli {
 
         try {
             double nouveauPrix = Double.parseDouble(args[1]);
-            if (nouveauPrix < 0) {
-                return List.of("Erreur : prix saisi invalide");
-            }
 
             ModifierPrixRezDeChausseeCliPresenter presenter = new ModifierPrixRezDeChausseeCliPresenter();
             modifierPrixRezDeChaussee.executer(nouveauPrix, presenter);
@@ -76,7 +73,7 @@ public class HotelCli {
 
         @Override
         public void prixInvalide() {
-            resultat = "Erreur : nouveau prix invalide.";
+            resultat = "Erreur : prix saisi invalide";
         }
 
         public String getResultat() {
