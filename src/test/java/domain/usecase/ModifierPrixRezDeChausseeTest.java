@@ -35,4 +35,18 @@ class ModifierPrixRezDeChausseeTest {
                 new Chambre.LectureDto(2, 25, 160.92))
         );
     }
+
+    @Test
+    void doitPresenterUneErreurQuandLePrixEstNegatif() {
+        HotelRepository repository = new InMemoryHotelRepository();
+        repository.enregistrerHotel(Hotel.creer(List.of(
+                new Chambre.CreationDto(0, 3)
+        )));
+        ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = new ModifierPrixRezDeChaussee(repository);
+        ModifierPrixRezDeChausseeTestPresenter presenter = new ModifierPrixRezDeChausseeTestPresenter();
+
+        modifierPrixRezDeChaussee.executer(-50.0, presenter);
+
+        assertThat(presenter.erreurPresentee).isInstanceOf(IllegalArgumentException.class);
+    }
 }
