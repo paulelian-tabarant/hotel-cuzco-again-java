@@ -39,6 +39,14 @@ class HotelCliTest {
         SortieCliSpy sortieSpy = new SortieCliSpy();
 
         HotelCli controller = new HotelCli(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);
+
+        Mockito.doAnswer(invocation -> {
+            double nouveauPrix = invocation.getArgument(0);
+            ModifierPrixRezDeChaussee.Presenter presenter = invocation.getArgument(1);
+            presenter.prixModifie(nouveauPrix);
+            return null;
+        }).when(modifierPrixRezDeChaussee).executer(Mockito.anyDouble(), Mockito.any(ModifierPrixRezDeChaussee.Presenter.class));
+
         controller.executerCommande("rdc 120.00");
 
         assertThat(sortieSpy.lignes()).isEqualTo(List.of("Modification prise en compte. Nouveau prix du rez-de-chaussée : 120,00€"));

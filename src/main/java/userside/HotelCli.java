@@ -55,15 +55,32 @@ public class HotelCli {
                 return List.of("Erreur : prix saisi invalide");
             }
 
-            modifierPrixRezDeChaussee.executer(nouveauPrix);
-
-            String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
-            lignes.add(String.format(formatConfirmation, nouveauPrix));
-
+            ModifierPrixRezDeChausseeCliPresenter presenter = new ModifierPrixRezDeChausseeCliPresenter();
+            modifierPrixRezDeChaussee.executer(nouveauPrix, presenter);
+            lignes.add(presenter.getResultat());
         } catch (Exception e) {
             lignes.add("Erreur : prix saisi invalide");
         }
 
         return lignes;
+    }
+
+    private static class ModifierPrixRezDeChausseeCliPresenter implements ModifierPrixRezDeChaussee.Presenter {
+        private String resultat;
+
+        @Override
+        public void prixModifie(double nouveauPrix) {
+            String formatConfirmation = "Modification prise en compte. Nouveau prix du rez-de-chaussée : %.2f€";
+            resultat = String.format(formatConfirmation, nouveauPrix);
+        }
+
+        @Override
+        public void prixInvalide() {
+            resultat = "Erreur : nouveau prix invalide.";
+        }
+
+        public String getResultat() {
+            return resultat;
+        }
     }
 }

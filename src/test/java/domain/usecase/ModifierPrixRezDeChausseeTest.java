@@ -23,7 +23,7 @@ class ModifierPrixRezDeChausseeTest {
         )));
 
         ModifierPrixRezDeChaussee modifierPrixRezDeChaussee = new ModifierPrixRezDeChaussee(repository);
-        modifierPrixRezDeChaussee.executer(120.99);
+        modifierPrixRezDeChaussee.executer(120.99, new ModifierPrixRezDeChausseeTestPresenter());
 
         ConsulterChambres consulterChambres = new ConsulterChambres(repository);
         List<Chambre.LectureDto> chambres = consulterChambres.executer();
