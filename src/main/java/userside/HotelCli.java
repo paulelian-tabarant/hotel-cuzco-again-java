@@ -54,6 +54,7 @@ public class HotelCli {
 
             ModifierPrixRezDeChausseeCliPresenter presenter = new ModifierPrixRezDeChausseeCliPresenter();
             modifierPrixRezDeChaussee.executer(nouveauPrix, presenter);
+
             lignes.add(presenter.getResultat());
         } catch (Exception e) {
             lignes.add("Erreur : prix saisi invalide");

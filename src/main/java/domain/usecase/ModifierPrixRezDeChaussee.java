@@ -22,7 +22,7 @@ public class ModifierPrixRezDeChaussee {
 
         try {
             hotel.modifierPrixChambresRezDeChaussee(nouveauPrix);
-        } catch (Exception ex) {
+        } catch (IllegalArgumentException e) {
             presenter.prixInvalide();
             return;
         }
