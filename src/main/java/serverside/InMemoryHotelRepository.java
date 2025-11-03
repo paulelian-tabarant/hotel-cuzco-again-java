@@ -20,8 +20,8 @@ public class InMemoryHotelRepository implements HotelRepository {
     }
 
     private Hotel copierHotel(Hotel hotel) {
-        List<Chambre.Reconstruction> chambreInputs = hotel.state().chambres().stream()
-                .map(chambreState -> new Chambre.Reconstruction(
+        List<Chambre.ReconstructionDto> chambreInputs = hotel.lire().chambres().stream()
+                .map(chambreState -> new Chambre.ReconstructionDto(
                         chambreState.etage(),
                         chambreState.numero(),
                         chambreState.prix()

@@ -13,9 +13,9 @@ public class ConsulterChambres {
         this.hotelRepository = hotelRepository;
     }
 
-    public List<Chambre.Lecture> executer() {
+    public List<Chambre.LectureDto> executer() {
         Hotel hotel = hotelRepository.recupererHotel();
 
-        return hotel.state().chambres();
+        return hotel.lire().chambres();
     }
 }

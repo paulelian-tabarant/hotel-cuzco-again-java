@@ -21,18 +21,18 @@ public class Chambre {
         this.prix = prix;
     }
 
-    public record Creation(int etage, int numero) {
+    public record CreationDto(int etage, int numero) {
     }
 
-    public static Chambre creer(Creation input) {
+    public static Chambre creer(CreationDto input) {
         return new Chambre(input.etage(), input.numero(), PRIX_REZ_DE_CHAUSSEE_INITIAL.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(input.etage())));
     }
 
-    public record Reconstruction(int etage, int numero, double prix) {
+    public record ReconstructionDto(int etage, int numero, double prix) {
     }
 
-    public static Chambre reconstruire(Reconstruction donnees) {
-        return new Chambre(donnees.etage(), donnees.numero(), new PrixEnEuros(donnees.prix()));
+    public static Chambre reconstruire(ReconstructionDto dto) {
+        return new Chambre(dto.etage(), dto.numero(), new PrixEnEuros(dto.prix()));
     }
 
     public void indiquerPrixRezDeChaussee(double nouveauPrix) {
@@ -40,10 +40,10 @@ public class Chambre {
         this.prix = prixRdc.augmenteDe(POURCENTAGE_AUGMENTATION_PRIX_PAR_ETAGE.get(etage));
     }
 
-    public record Lecture(int etage, int numero, double prix) {
+    public record LectureDto(int etage, int numero, double prix) {
     }
 
-    public Lecture state() {
-        return new Lecture(etage, numero, prix.valeur());
+    public LectureDto lire() {
+        return new LectureDto(etage, numero, prix.valeur());
     }
 }

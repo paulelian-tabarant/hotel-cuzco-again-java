@@ -18,12 +18,12 @@ public class HotelAcceptanceTest {
     @Test
     void doitAfficherChambresEtModifierPrixRdc() {
         Hotel hotelInitial = Hotel.creer(List.of(
-                new Chambre.Creation(0, 1),
-                new Chambre.Creation(0, 2),
-                new Chambre.Creation(1, 101),
-                new Chambre.Creation(1, 102),
-                new Chambre.Creation(2, 201),
-                new Chambre.Creation(2, 202)
+                new Chambre.CreationDto(0, 1),
+                new Chambre.CreationDto(0, 2),
+                new Chambre.CreationDto(1, 101),
+                new Chambre.CreationDto(1, 102),
+                new Chambre.CreationDto(2, 201),
+                new Chambre.CreationDto(2, 202)
         ));
         HotelRepository hotelRepository = new InMemoryHotelRepository();
         hotelRepository.enregistrerHotel(hotelInitial);

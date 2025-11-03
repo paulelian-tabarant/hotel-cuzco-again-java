@@ -20,8 +20,8 @@ class HotelControllerTest {
     void doitExecuterLaFonctionnaliteDeListingDesChambres() {
         SortieCliSpy sortieSpy = new SortieCliSpy();
         Mockito.when(consulterChambres.executer()).thenReturn(List.of(
-                new Chambre.Lecture(0, 1, 100.00),
-                new Chambre.Lecture(1, 101, 148.70)
+                new Chambre.LectureDto(0, 1, 100.00),
+                new Chambre.LectureDto(1, 101, 148.70)
         ));
 
         HotelController controller = new HotelController(sortieSpy, consulterChambres, modifierPrixRezDeChaussee);

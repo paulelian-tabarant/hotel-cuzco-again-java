@@ -16,25 +16,25 @@ public class HotelRepositoryTest {
         HotelRepository repository = new InMemoryHotelRepository();
 
         repository.enregistrerHotel(Hotel.reconstruire(List.of(
-                new Chambre.Reconstruction(0, 1, 100.0),
-                new Chambre.Reconstruction(1, 10, 122.0),
-                new Chambre.Reconstruction(2, 20, 133.0)
+                new Chambre.ReconstructionDto(0, 1, 100.0),
+                new Chambre.ReconstructionDto(1, 10, 122.0),
+                new Chambre.ReconstructionDto(2, 20, 133.0)
         )));
         Hotel hotelRecupere = repository.recupererHotel();
 
-        List<Chambre.Lecture> chambreStates = hotelRecupere.state().chambres();
+        List<Chambre.LectureDto> chambreStates = hotelRecupere.lire().chambres();
         assertThat(chambreStates).hasSameElementsAs(List.of(
-                new Chambre.Lecture(0, 1, 100.0),
-                new Chambre.Lecture(1, 10, 122.0),
-                new Chambre.Lecture(2, 20, 133.0))
+                new Chambre.LectureDto(0, 1, 100.0),
+                new Chambre.LectureDto(1, 10, 122.0),
+                new Chambre.LectureDto(2, 20, 133.0))
         );
     }
 
     @Test
     public void neDoitPasModifierLesChambresTantQuellesNeSontPasEnregistrees() {
         Hotel hotel = Hotel.reconstruire(List.of(
-                new Chambre.Reconstruction(0, 1, 100.0),
-                new Chambre.Reconstruction(1, 10, 122.0)
+                new Chambre.ReconstructionDto(0, 1, 100.0),
+                new Chambre.ReconstructionDto(1, 10, 122.0)
         ));
 
         HotelRepository repository = new InMemoryHotelRepository();
@@ -42,9 +42,9 @@ public class HotelRepositoryTest {
         hotel.modifierPrixChambresRezDeChaussee(10.0);
         Hotel hotelRecupere = repository.recupererHotel();
 
-        assertThat(hotelRecupere.state().chambres()).hasSameElementsAs(List.of(
-                new Chambre.Lecture(0, 1, 100.0),
-                new Chambre.Lecture(1, 10, 122.0)
+        assertThat(hotelRecupere.lire().chambres()).hasSameElementsAs(List.of(
+                new Chambre.LectureDto(0, 1, 100.0),
+                new Chambre.LectureDto(1, 10, 122.0)
         ));
     }
 }
